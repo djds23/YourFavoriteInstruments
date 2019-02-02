@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 		let viewModel = FollowUserViewModel(
 			loggedInUser: User(name: "deanrex"),
-			user: User(name: "anderson.paak"),
+			presentingUser: User(name: "anderson.paak"),
 			networkHandler: DefaultFollowNetworkHandler(),
 			scheduler: backgroundScheduler
 		)

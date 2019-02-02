@@ -24,9 +24,10 @@ class FollowerViewModelTest: XCTestCase {
 			followResponse: .success
 		)
 
+
 		// Create a scheduler that starts at 0
 		let scheduler = TestScheduler(initialClock: 0)
-		let viewModel = FollowUserViewModel(loggedInUser: testFollower, user: testUser, networkHandler: mockNetworking, scheduler: scheduler)
+		let viewModel = FollowUserViewModel(loggedInUser: testFollower, presentingUser: testUser, networkHandler: mockNetworking, scheduler: scheduler)
 		let testCountObserver = scheduler.createObserver(Int.self)
 		let testLatestFollowObserver = scheduler.createObserver(User.self)
 		let testCanFollowObserver = scheduler.createObserver(Bool.self)
