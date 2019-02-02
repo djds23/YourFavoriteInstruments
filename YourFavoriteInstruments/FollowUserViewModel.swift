@@ -17,7 +17,7 @@ final class FollowUserViewModel {
 	}
 
 	var name: String {
-		return user.name
+		return presentingUser.name
 	}
 
 	var canFollow: Observable<Bool> {
@@ -28,12 +28,10 @@ final class FollowUserViewModel {
 			.distinctUntilChanged()
 	}
 
-	// New Observable derived from followers subject
 	var followCount: Observable<Int> {
 		return followersSubject.map { $0.count }
 	}
 
-	// New Observable derived from followers subject
 	var latestFollow: Observable<User> {
 		return followersSubject.flatMap { (users) -> Observable<User> in
 			if let user = users.last {
@@ -54,10 +52,10 @@ final class FollowUserViewModel {
 	// payloads to.
 	private let followersSubject = ReplaySubject<[User]>.create(bufferSize: 1)
 	private let fetchDataSubject = PublishSubject<Void>()
-	private let user: User
+	private let presentingUser: User
 	private let loggedInUser: User
-	init(loggedInUser: User, user: User, networkHandler: FollowNetworkHandler) {
-		self.user = user
+	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler) {
+		self.presentingUser = presentingUser
 		self.loggedInUser = loggedInUser
 		let operationQueue = OperationQueue()
 		operationQueue.maxConcurrentOperationCount = 20
@@ -67,17 +65,17 @@ final class FollowUserViewModel {
 		)
 		setupBindings(
 			loggedInUser: loggedInUser,
-			user: user,
+			presentingUser: presentingUser,
 			scheduler: backgroundScheduler,
 			networkHandler: networkHandler
 		)
 	}
 
-	private func setupBindings(loggedInUser: User, user: User, scheduler: ImmediateSchedulerType, networkHandler: FollowNetworkHandler) {
+	private func setupBindings(loggedInUser: User, presentingUser: User, scheduler: ImmediateSchedulerType, networkHandler: FollowNetworkHandler) {
 		followSubject
 			.observeOn(scheduler)
 			.flatMapLatest { _ in
-				networkHandler.user(loggedInUser, wouldLikeToFollow: user)
+				networkHandler.user(loggedInUser, wouldLikeToFollow: presentingUser)
 			}
 			.map { _ in }
 			.bind(to: fetchDataSubject)

@@ -15,7 +15,7 @@ class DefaultFollowNetworkHandler: FollowNetworkHandler {
 		User(name: "timHarringtonOFFICIAL"),
 		User(name: "stingFromThePOLICE"),
 		User(name: "downeasterALEXA")
-	]
+	].shuffled()
 
 	func followers() -> Observable<[User]> {
 		return Observable.of(

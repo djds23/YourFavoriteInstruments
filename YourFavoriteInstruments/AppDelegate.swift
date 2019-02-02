@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window = UIWindow(frame: UIScreen.main.bounds)
 		let viewModel = FollowUserViewModel(
 			loggedInUser: User(name: "deanrex"),
-			user: User(name: "anderson.paak"),
+			presentingUser: User(name: "anderson.paak"),
 			networkHandler: DefaultFollowNetworkHandler()
 		)
 		let initialViewController = FollowViewController(viewModel: viewModel)

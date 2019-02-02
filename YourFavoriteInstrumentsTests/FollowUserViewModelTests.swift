@@ -23,7 +23,7 @@ class FollowerViewModelTest: XCTestCase {
 			followResponse: .success
 		)
 		// set up our ViewModel with the fake network
-		let viewModel = FollowUserViewModel(loggedInUser: testFollower, user: testUser, networkHandler: mockNetworking)
+		let viewModel = FollowUserViewModel(loggedInUser: testFollower, presentingUser: testUser, networkHandler: mockNetworking)
 
 		// Create two publish subjects, these will listen for
 		// values that come in after a successful follow
