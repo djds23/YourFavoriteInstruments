@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import RxSwift
+import RxTest
 
 @testable import YourFavoriteInstruments
 class FollowerViewModelTest: XCTestCase {
@@ -22,70 +23,43 @@ class FollowerViewModelTest: XCTestCase {
 			mockFollowers: [testFollower],
 			followResponse: .success
 		)
-		// set up our ViewModel with the fake network
-		let viewModel = FollowUserViewModel(loggedInUser: testFollower, user: testUser, networkHandler: mockNetworking)
 
-		// Create two publish subjects, these will listen for
-		// values that come in after a successful follow
-		let testCountSubject = PublishSubject<Int>()
-		let testLatestFollowSubject = PublishSubject<User>()
-		let testCanFollowSubject = PublishSubject<Bool>()
+		// Create a scheduler that starts at 0
+		let scheduler = TestScheduler(initialClock: 0)
+		let viewModel = FollowUserViewModel(loggedInUser: testFollower, user: testUser, networkHandler: mockNetworking, scheduler: scheduler)
+		let testCountObserver = scheduler.createObserver(Int.self)
+		let testLatestFollowObserver = scheduler.createObserver(User.self)
+		let testCanFollowObserver = scheduler.createObserver(Bool.self)
 
-		// Bind the observables from the ViewModel to our subjects
+		// Bind just like we did with our subject
 		viewModel
 			.followCount
-			.bind(to: testCountSubject)
+			.bind(to: testCountObserver)
 			.disposed(by: disposeBag)
-
 		viewModel
 			.latestFollow
-			.bind(to: testLatestFollowSubject)
+			.bind(to: testLatestFollowObserver)
 			.disposed(by: disposeBag)
 
 		viewModel
 			.canFollow
-			.bind(to: testCanFollowSubject)
+			.bind(to: testCanFollowObserver)
 			.disposed(by: disposeBag)
 
-		// Create expectations for us to confirm behavior is correct
-		let expectCountToBeCorrect = expectation(description: "The correct count was received")
-		testCountSubject
-			.do(onNext: { count in
-				if count == 1 {
-					expectCountToBeCorrect.fulfill()
-				}
-			})
-			.subscribe()
-			.disposed(by: disposeBag)
+		viewModel.fetch()
 
-		let expectLatestFollow = expectation(description: "The correct latest user was received")
-		testLatestFollowSubject
-			.do(onNext: { latestFollow in
-				if latestFollow == testFollower {
-					expectLatestFollow.fulfill()
-				}
-			})
-			.subscribe()
-			.disposed(by: disposeBag)
-
-		let expectCanNoLongerFollow = expectation(description: "We inform the view if we can or cannot follow")
-		testCanFollowSubject
-			.do(onNext: { canFollow in
-				if !canFollow {
-					expectCanNoLongerFollow.fulfill()
-				}
-			})
-			.subscribe()
-			.disposed(by: disposeBag)
-
-		// trigger the follow
-		viewModel.followUserObserver.onNext(())
-		// wait for our events to come in and cause our expectations to
-		// be fulfilled.
-		wait(for: [
-			expectCountToBeCorrect,
-			expectLatestFollow,
-			expectCanNoLongerFollow
-		], timeout: 5)
+		scheduler.start()
+		// ensure we only got 1 event
+		XCTAssertEqual(testCountObserver.events.count, 1)
+		// ensure our only event was the Int 1, the number of followers we have
+		XCTAssertEqual(testCountObserver.events[0].value.element!, 1)
+		// ensure we only got 1 event
+		XCTAssertEqual(testLatestFollowObserver.events.count, 1)
+		// ensure the follower we got was the same follower we put in our mock
+		XCTAssertEqual(testLatestFollowObserver.events[0].value.element!, testFollower)
+		// ensure we only got 1 event
+		XCTAssertEqual(testCanFollowObserver.events.count, 1)
+		// ensure the view is informed if we can or can't follow this user
+		XCTAssertFalse(testCanFollowObserver.events[0].value.element!)
 	}
 }
