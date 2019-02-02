@@ -25,6 +25,7 @@ final class FollowUserViewModel {
 		return followersSubject
 			.map { $0.contains(loggedInUser) }
 			.map { !$0 }
+			.distinctUntilChanged()
 	}
 
 	// New Observable derived from followers subject
@@ -41,6 +42,10 @@ final class FollowUserViewModel {
 				return .never()
 			}
 		}
+	}
+
+	func fetch() {
+		fetchDataSubject.onNext(())
 	}
 
 	private let disposeBag = DisposeBag()
@@ -84,7 +89,5 @@ final class FollowUserViewModel {
 			}
 			.bind(to: followersSubject)
 			.disposed(by: disposeBag)
-
-		fetchDataSubject.onNext(())
 	}
 }

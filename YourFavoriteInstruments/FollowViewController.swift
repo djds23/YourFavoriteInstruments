@@ -53,6 +53,7 @@ class FollowViewController: UIViewController {
 		usernameLabel.text = viewModel.name
 		navigationItem.title = viewModel.name
 		configureBindings()
+		viewModel.fetch()
 	}
 
 	func configureBindings() {
