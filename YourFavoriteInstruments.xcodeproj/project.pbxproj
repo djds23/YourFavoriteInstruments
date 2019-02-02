@@ -14,11 +14,12 @@
 		7B0CA9F72206104B004D99C7 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CA9F62206104B004D99C7 /* Response.swift */; };
 		7B0CA9F922061064004D99C7 /* FollowNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CA9F822061064004D99C7 /* FollowNetworkHandler.swift */; };
 		7B0CA9FB22062227004D99C7 /* DefaultFollowNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CA9FA22062226004D99C7 /* DefaultFollowNetworkHandler.swift */; };
+		7B0CA9FD22062489004D99C7 /* FollowUserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CA9FC22062489004D99C7 /* FollowUserViewModelTests.swift */; };
+		7B0CAA0022062581004D99C7 /* FollowNetworkHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CA9FF22062581004D99C7 /* FollowNetworkHandlerMock.swift */; };
 		7B72971822060A45002DE114 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72971722060A45002DE114 /* AppDelegate.swift */; };
 		7B72971A22060A45002DE114 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72971922060A45002DE114 /* FollowViewController.swift */; };
 		7B72971F22060A46002DE114 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B72971E22060A46002DE114 /* Assets.xcassets */; };
 		7B72972222060A46002DE114 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B72972022060A46002DE114 /* LaunchScreen.storyboard */; };
-		7B72972D22060A46002DE114 /* YourFavoriteInstrumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72972C22060A46002DE114 /* YourFavoriteInstrumentsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,8 @@
 		7B0CA9F62206104B004D99C7 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		7B0CA9F822061064004D99C7 /* FollowNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNetworkHandler.swift; sourceTree = "<group>"; };
 		7B0CA9FA22062226004D99C7 /* DefaultFollowNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFollowNetworkHandler.swift; sourceTree = "<group>"; };
+		7B0CA9FC22062489004D99C7 /* FollowUserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowUserViewModelTests.swift; sourceTree = "<group>"; };
+		7B0CA9FF22062581004D99C7 /* FollowNetworkHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNetworkHandlerMock.swift; sourceTree = "<group>"; };
 		7B72971422060A45002DE114 /* YourFavoriteInstruments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourFavoriteInstruments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72971722060A45002DE114 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B72971922060A45002DE114 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +49,6 @@
 		7B72972122060A46002DE114 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B72972322060A46002DE114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B72972822060A46002DE114 /* YourFavoriteInstrumentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourFavoriteInstrumentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B72972C22060A46002DE114 /* YourFavoriteInstrumentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFavoriteInstrumentsTests.swift; sourceTree = "<group>"; };
 		7B72972E22060A46002DE114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE4F6EE08C978A3D0F70F373 /* Pods-YourFavoriteInstruments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourFavoriteInstruments.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourFavoriteInstruments/Pods-YourFavoriteInstruments.release.xcconfig"; sourceTree = "<group>"; };
 		B38C668C47028234D896A61B /* Pods-YourFavoriteInstrumentsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourFavoriteInstrumentsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourFavoriteInstrumentsTests/Pods-YourFavoriteInstrumentsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7B0CA9FE2206254F004D99C7 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7B0CA9FF22062581004D99C7 /* FollowNetworkHandlerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		7B72970B22060A45002DE114 = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +144,9 @@
 		7B72972B22060A46002DE114 /* YourFavoriteInstrumentsTests */ = {
 			isa = PBXGroup;
 			children = (
-				7B72972C22060A46002DE114 /* YourFavoriteInstrumentsTests.swift */,
+				7B0CA9FE2206254F004D99C7 /* Mocks */,
 				7B72972E22060A46002DE114 /* Info.plist */,
+				7B0CA9FC22062489004D99C7 /* FollowUserViewModelTests.swift */,
 			);
 			path = YourFavoriteInstrumentsTests;
 			sourceTree = "<group>";
@@ -357,7 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B72972D22060A46002DE114 /* YourFavoriteInstrumentsTests.swift in Sources */,
+				7B0CA9FD22062489004D99C7 /* FollowUserViewModelTests.swift in Sources */,
+				7B0CAA0022062581004D99C7 /* FollowNetworkHandlerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
