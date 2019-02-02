@@ -56,19 +56,13 @@ final class FollowUserViewModel {
 	private let fetchDataSubject = PublishSubject<Void>()
 	private let user: User
 	private let loggedInUser: User
-	init(loggedInUser: User, user: User, networkHandler: FollowNetworkHandler) {
+	init(loggedInUser: User, user: User, networkHandler: FollowNetworkHandler, scheduler: ImmediateSchedulerType) {
 		self.user = user
 		self.loggedInUser = loggedInUser
-		let operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = 20
-		operationQueue.qualityOfService = .userInitiated
-		let backgroundScheduler = OperationQueueScheduler(
-			operationQueue: operationQueue
-		)
 		setupBindings(
 			loggedInUser: loggedInUser,
 			user: user,
-			scheduler: backgroundScheduler,
+			scheduler: scheduler,
 			networkHandler: networkHandler
 		)
 	}
