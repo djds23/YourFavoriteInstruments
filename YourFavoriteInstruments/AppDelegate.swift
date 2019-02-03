@@ -18,17 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		self.window = UIWindow(frame: UIScreen.main.bounds)
-		let operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = 20
-		operationQueue.qualityOfService = .userInitiated
-		let backgroundScheduler = OperationQueueScheduler(
-			operationQueue: operationQueue
-		)
+		let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
 		let viewModel = FollowUserViewModel(
 			loggedInUser: User(name: "deanrex"),
 			presentingUser: User(name: "anderson.paak"),
 			networkHandler: DefaultFollowNetworkHandler(),
-			scheduler: backgroundScheduler
+			scheduler: scheduler
 		)
 		let initialViewController = FollowViewController(viewModel: viewModel)
 		self.window?.rootViewController = UINavigationController(rootViewController: initialViewController)

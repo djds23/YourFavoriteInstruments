@@ -55,7 +55,7 @@ final class FollowUserViewModel {
 	private let presentingUser: User
 	private let loggedInUser: User
 
-	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler, scheduler: ImmediateSchedulerType) {
+	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler, scheduler: SchedulerType) {
 		self.presentingUser = presentingUser
 		self.loggedInUser = loggedInUser
 		setupBindings(
@@ -66,7 +66,7 @@ final class FollowUserViewModel {
 		)
 	}
 
-	private func setupBindings(loggedInUser: User, presentingUser: User, scheduler: ImmediateSchedulerType, networkHandler: FollowNetworkHandler) {
+	private func setupBindings(loggedInUser: User, presentingUser: User, scheduler: SchedulerType, networkHandler: FollowNetworkHandler) {
 		followSubject
 			.observeOn(scheduler)
 			.flatMapLatest { _ in
