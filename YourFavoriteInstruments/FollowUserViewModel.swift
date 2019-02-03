@@ -57,21 +57,18 @@ final class FollowUserViewModel {
 	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler) {
 		self.presentingUser = presentingUser
 		self.loggedInUser = loggedInUser
-		let operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = 20
-		operationQueue.qualityOfService = .userInitiated
-		let backgroundScheduler = OperationQueueScheduler(
-			operationQueue: operationQueue
+		let scheduler = SerialDispatchQueueScheduler(
+			qos: .userInitiated
 		)
 		setupBindings(
 			loggedInUser: loggedInUser,
 			presentingUser: presentingUser,
-			scheduler: backgroundScheduler,
+			scheduler: scheduler,
 			networkHandler: networkHandler
 		)
 	}
 
-	private func setupBindings(loggedInUser: User, presentingUser: User, scheduler: ImmediateSchedulerType, networkHandler: FollowNetworkHandler) {
+	private func setupBindings(loggedInUser: User, presentingUser: User, scheduler: SchedulerType, networkHandler: FollowNetworkHandler) {
 		followSubject
 			.observeOn(scheduler)
 			.flatMapLatest { _ in
