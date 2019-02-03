@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 @UIApplicationMain
 
@@ -17,10 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		self.window = UIWindow(frame: UIScreen.main.bounds)
+		let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
 		let viewModel = FollowUserViewModel(
 			loggedInUser: User(name: "deanrex"),
 			presentingUser: User(name: "anderson.paak"),
-			networkHandler: DefaultFollowNetworkHandler()
+			networkHandler: DefaultFollowNetworkHandler(),
+			scheduler: scheduler
 		)
 		let initialViewController = FollowViewController(viewModel: viewModel)
 		self.window?.rootViewController = UINavigationController(rootViewController: initialViewController)

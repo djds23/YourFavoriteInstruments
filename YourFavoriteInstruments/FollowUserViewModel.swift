@@ -54,12 +54,10 @@ final class FollowUserViewModel {
 	private let fetchDataSubject = PublishSubject<Void>()
 	private let presentingUser: User
 	private let loggedInUser: User
-	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler) {
+
+	init(loggedInUser: User, presentingUser: User, networkHandler: FollowNetworkHandler, scheduler: SchedulerType) {
 		self.presentingUser = presentingUser
 		self.loggedInUser = loggedInUser
-		let scheduler = SerialDispatchQueueScheduler(
-			qos: .userInitiated
-		)
 		setupBindings(
 			loggedInUser: loggedInUser,
 			presentingUser: presentingUser,
