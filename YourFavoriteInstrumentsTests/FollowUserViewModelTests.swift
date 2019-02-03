@@ -78,8 +78,8 @@ class FollowerViewModelTest: XCTestCase {
 			.subscribe()
 			.disposed(by: disposeBag)
 
-		// trigger the follow
-		viewModel.followUserObserver.onNext(())
+		viewModel.fetch()
+
 		// wait for our events to come in and cause our expectations to
 		// be fulfilled.
 		wait(for: [
